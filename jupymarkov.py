@@ -11,7 +11,7 @@
 #make sure your input file is a plain text format (.txt)
 
 from collections import *
-from random import random
+import random
 import sys
 
 def train_char_lm(fname, order):
@@ -31,16 +31,13 @@ def train_char_lm(fname, order):
 def generate_letter(lm, history, order):
     history = history[-order:]
     dist = lm[history]
-    x = random()
+    x = random.random()
     for c,v in dist:
         x = x - v
         if x <= 0: return c
 
-def generate_text(lm, order, nletters, seed="~"):
-    if seed == "~":
-        history = seed * order
-    else:
-        history = seed
+def generate_text(lm, order, nletters):
+    history = random.choice(lm.keys())
     out = []
     for i in xrange(nletters):
         c = generate_letter(lm, history, order)
