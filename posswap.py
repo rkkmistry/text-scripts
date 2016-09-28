@@ -52,7 +52,7 @@ def nestedprint(text):
 	playnice = ""
 	for sentence in text:
 		playnice += ' ' + ' '.join(sentence) + '.'
-	print playnice
+	print playnice.encode('ascii', 'ignore')
 
 if inject_pos == "noun_phrases":
 	inject = getNPhrases(inject)

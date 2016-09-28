@@ -1,48 +1,44 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import regex
+import re
 import sys
-from textblob import TextBlob as tb
 
-use = ""
+use = sys.stdin.read()
 
-for line in sys.stdin:
-		use += line.strip() + " "
+#gets rid of single \n
+use = re.sub(r"([^\n\r])\r\n([^\n\r])", r"\1 \2", use)
+use = re.sub(r'  ', " ", use)
 
-#gets rids of [xyz]
-use = regex.sub(r'\s?\[[\*\w]+\]\s?', '', use)
-#gets rids of (xyz)
-use = regex.sub(r'\s?\([^)]+\)\s?', "", use)
-use = regex.sub(r'\s\s', " ", use)
-# #gets rid of Supreme Court case numbers
-# use = re.sub(r',\s\d{2,3}\sU\.S\.\s\d{2,3}[;,.]\s(?P<nums>\d{2,3})?-?(?P=nums)?[.,;]?', "", use)
+# gets rids of (xyz)
+use = re.sub(r'\(([^()]*|\([^()]*)\)*\)', "", use)
 
+# gets rids of [xyz]
+use = re.sub(r'\s?\[([\*\w]{2,}|\d+)\]\s?', ' ', use)
+
+# text = ""
+# text = re.sub(ur'\W\d{1,4}\s[\w\. ]{1,20}\s§?\d{1,4}\W', '', text, re.UNICODE)
+
+# print text
+
+# re.match(r'^/by_tag/(?P<tag>\w+)/(?P<filename>(\w|[.,!#%{}()@])+)$', u'/by_tag/påske/øyfjell.jpg', re.UNICODE)
+
+
+#for the main citation
+use = re.sub(r'\W\d{1,4}\s[\w\. ]{1,20}\s\d{1,4}\W', '', use)
+#for the page nums after citation
+use = re.sub(r'[.,]\D\d+-?\d+?[.,]', '', use)
+#for floating digits
+use = re.sub(r'\d{1,4}\s[\w\. ]{1,20},', '', use)
+#for "at 139" etc.
+# r',\s*?at [^A-Za-z]{1,4},'
+
+#OLD STUFF
 # use = re.sub(r'[,.]\ssupra[,.]', " ", use)
 # use = re.sub(r'  ', " ", use)
 
-# print regex.findall(r'(blah\s)+', test)
-
-# final = regex.findall(r'\s^(\.)*(\w\.)', use)
-
-print use
-
 # usetext = '\n'.join(text)
 
-# usetext = usetext.split("OPIN", 1)[1]
-# if "ordnote" in usetext:
-# 	usetext = usetext.split("ordnote", 1)[0]
-# else:
-# 	usetext = usetext.split("ORDBV", 1)[0]
 
-# usetext = re.sub(r'[^\x00-\x7F]', '', usetext)
-# usetext = re.sub(r'[\n]{3,5}.*[\n]{3,5}', "", usetext)
-# usetext = re.sub(r'\n{3,5}.*\n.*\n.*\n{3,5}', "", usetext)
-# usetext = re.sub(r'\n\n', "\n", usetext)
-
-# print usetext
-
-# usetext = re.sub(r'[\n\r]{3,5}.*[\n]{3,5}', '', usetext)
-# print usetext
-
-# print re.findall(r'\n\x0c[502-561]+.*\n[502-561].*S\.\n', usetext, re.DOTALL)
+use = re.sub(r'[ ]{2,}', " ", use)
+print use
