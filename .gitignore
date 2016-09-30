@@ -1,4 +1,3 @@
 *.txt
-retest.py
-wiki-list.py
+re.py
 scrape.py
