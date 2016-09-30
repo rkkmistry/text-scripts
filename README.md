@@ -9,4 +9,6 @@ All of these scripts are pretty simple python scripts that I've been using to me
 
 **shuffle.py** - takes two texts and randomly selects lines from each to create a new text
 
+**possplit.py** - inserts a line break at a specified part of speech
+
 
