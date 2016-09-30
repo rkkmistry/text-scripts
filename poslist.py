@@ -1,11 +1,15 @@
-#to use in terminal type "python poslist.py < file.txt"
+#to use in terminal type "python poslist.py [POS] < file.txt"
 #this script will print a dictionary that contains lists
 #that are grouped by parts of speech and all the unique
 #words that are part of each
+#[POS] if you just want one part of speech printed
+#you can put it here
 
 import sys
 from textblob import TextBlob as tb
 import pprint
+
+choice = sys.argv[1]
 
 poslist = dict()
 text = sys.stdin.read().decode('utf-8')
@@ -19,6 +23,9 @@ for word in tb(text).tags:
 
 
 pp = pprint.PrettyPrinter(indent=4)
-pp.pprint(poslist)
+if choice is not None:
+    pp.pprint(poslist[choice])
+else:
+    pp.pprint(postlist)
 
 # print poslist
